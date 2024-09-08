@@ -105,21 +105,120 @@ public class MyString implements Comparable {
 	//+compareTo(str : MyString) : int
 	@Override
 	public int compareTo(Object o) {
+		if(!(o instanceof MyString))
+		{
+			throw new ClassCastException("Object is not an instance of MyString")
+				
+		}
+		MyString str = (MyString) o;
+		int len = Math.min(this.length(), str.length());
+		for( int i=0; i<len;i++)
+			{
+				if(this.get(i) != str.get(i)){
+				return this.get(i) - str.get(i);
+			}
+			}
+		return this.length() - str.length();
 		// TODO Auto-generated method stub
 		return 0;
 	}
 	
 	//+concat(str : MyString) : MyString
+	public MyString concat (MyString str)
+	{
+		MyString result = new MyString(this);
+		for (int i=0; i< str.length(); i++)
+			{
+				result.addChar(str.get(i));
+			}
+		return result;
+	}
 	
 	//+concat(str : String) : MyString
+		public MyString concat (String str)
+	{
+		MyString result = new MyString(this);
+		for (int i=0; i< str.length(); i++)
+			{
+				result.addChar(str.charAt(i));
+			}
+		return result;
+	}
 	
 	//+indexOf(str : MyString) : int
+	public int indexOf(MyString str)
+	{
+		int len = str.length();
+		for(int i=0; i<=this.length() - len; i++)
+			{
+				boolean match= true;
+				for(int j= 0; i<len; j++)
+					{
+						if(this.get(i+j) != str.get(j))
+						{
+							match=false;
+							break;
+						}
+					}
+				if (match){
+					return i;
+				}
+			}
+				return -1;
+	}
+	
 	
 	//+lastIndexOf(str : MyString) : int
+		public int lastIndexOf(MyString str)
+	{
+		int len = str.length();
+		for(int i=this.length() - len; i>=0; i--)
+			{
+				boolean match= true;
+				for(int j= 0; i<len; j++)
+					{
+						if(this.get(i+j) != str.get(j))
+						{
+							match=false;
+							break;
+						}
+					}
+				if (match){
+					return i;
+				}
+			}
+				return -1;
+	}
+	
 	
 	//+substring(start : int) : MyString
-	
+	public MyString substring(int start)
+	{
+		if(start < 0 || start > this.length())
+		{
+			throw new IndexOutOfBoundsException();
+		}
+		MyString result = new MyString();
+		for(int i= start; i <this.length(); i++)
+			{
+				result.addChar(this.get(i));
+			}
+		return result;
+	}
 	//+substring(start : int, end : int) : MyString
+		public MyString substring(int start,int end)
+	{
+		if(start < 0 || end > this.length() || start>end)
+		{
+			throw new IndexOutOfBoundsException();
+		}
+		MyString result = new MyString();
+		for(int i= start; i <end; i++)
+			{
+				result.addChar(this.get(i));
+			}
+		return result;
+	}
 
 	
 	
